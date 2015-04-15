@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Drafting</title>
+<script type="text/javascript">
+window.onload=function()
+{
+var oDiv=document.getElementById('div1');
+oDiv.onmousedown=function(ev)
+{
+	var oEvent=ev||event;
+	var x=0;
+	var y=0;
+	x=oEvent.clientX-oDiv.offsetLeft;
+	y=oEvent.clientY-oDiv.offsetTop;
+	document.onmousemove=function(ev)
+	{
+		var oEvent=ev||event;
+		var out1=oEvent.clientX+oDiv.scrollLeft-x;
+		var out2=oEvent.clientY+oDiv.scrollTop-y;
+		console.log(out1);
+		console.log(out2);
+		
+		var oWidth=document.documentElement.scrollWidth-oDiv.offsetWidth;
+		var oHeight=document.documentElement.scrollHeight-oDiv.offsetHeight;
+		console.log(oWidth);
+		console.log(oHeight);
+
+		if(out1<0)
+		{out1=0;}
+		else if (out1>oWidth)
+		{
+			out1=oWidth;
+		}
+		if(out2<0)
+		{out2=0;}
+		else if (out2>oHeight)
+		{
+			out2=oHeight;
+		}
+		
+		oDiv.style.left=out1+'px';
+		oDiv.style.top=out2+'px';
+	}
+		document.onmouseup=function()
+	{
+		document.onmousemove=null;
+		document.onmouseup=null;	
+	}
+	return false;//解决firefox低版本的bug问题
+}
+}
+</script>
+</head>
+
+<body style='height:2000px;  width:2000px;'>
+<div id="div1" style="width:100px; height:100px; background:#060; border:1px solid #039; position:absolute;">
+</div>
+</body>
+</html>
